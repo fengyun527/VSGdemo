@@ -1,7 +1,7 @@
 # VSGdemo
 VSGdemos
 
-I have read some OpenGL tutorial before study and use VulkanSceneGraph, I like learnopengl.com, I wish to use VSG to implement effects in learnopengl.com. datas and some code will refer learnopengl.com and vsgExamples and vsgTutorial(https://github.com/vsg-dev/vsgTutorial)
+I have read some OpenGL tutorial before study and use VulkanSceneGraph, I like learnopengl.com, I wish to use VSG to implement effects in learnopengl.com. datas and some code will refer [learnopengl.com](https://learnopengl.com/) and vsgExamples and [vsgTutorial](https://github.com/vsg-dev/vsgTutorial)
 
 I use visual studio 2022 to build this project, use CMake to generate project files.
 and I use Windows 11 to run this project.
