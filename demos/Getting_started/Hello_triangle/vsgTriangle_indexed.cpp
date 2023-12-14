@@ -47,20 +47,12 @@ int main(int argc, char** argv)
         VkVertexInputAttributeDescription{0, 0, VK_FORMAT_R32G32B32_SFLOAT, 0}, // vertex data
     };
 
-    // I use data from learnOpengl - hello Triangle, the triangl direction is not point out of the screen because of different NDC in vulkan
-    auto rasterization = vsg::RasterizationState::create();
-    rasterization->cullMode = VK_CULL_MODE_NONE;
-
-    // auto depthStencilState = vsg::DepthStencilState::create();
-    // depthStencilState->depthCompareOp = VK_COMPARE_OP_GREATER_OR_EQUAL;
-
     vsg::GraphicsPipelineStates pipelineStates{
         vsg::VertexInputState::create(vertexBindingsDescriptions, vertexAttributeDescriptions),
         vsg::InputAssemblyState::create(),
-        rasterization,
+        vsg::RasterizationState::create(),
         vsg::MultisampleState::create(),
         vsg::ColorBlendState::create(), 
-        // depthStencilState
     };
 
     auto pipelineLayout = vsg::PipelineLayout::create();
@@ -77,10 +69,15 @@ int main(int argc, char** argv)
          {0.5f, -0.5f, 0.5f},
          {0.5f, 0.5f, 0.5f} }); 
 
+    // in vulkan NDC, x axis point to right, y axis point to bottom, z point in the screen, it is right handed system
+    // in this section, use indices to let the traingle point out. 
+    auto indices = vsg::ushortArray::create(
+        { 0, 2, 1});
     // setup geometry
     auto drawCommands = vsg::Commands::create();
-    drawCommands->addChild(vsg::BindVertexBuffers::create(0, vsg::DataList{ vertices}));   
-    drawCommands->addChild(vsg::Draw::create(3, 1, 0, 0));
+    drawCommands->addChild(vsg::BindVertexBuffers::create(0, vsg::DataList{ vertices }));
+    drawCommands->addChild(vsg::BindIndexBuffer::create(indices));
+    drawCommands->addChild(vsg::DrawIndexed::create(3, 1, 0, 0, 0));
 
     scenegraph->addChild(drawCommands);
 
