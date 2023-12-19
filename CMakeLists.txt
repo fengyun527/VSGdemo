@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.7)
 project(vsgDemos
         VERSION 0.0.0
         DESCRIPTION "use vsg to implement learnOpengl demos"
-        LANGUAGES CXX C
+        LANGUAGES CXX
 )
 
 # build all demos into the bin directory
@@ -33,4 +33,8 @@ find_package(vsgImGui QUIET)
 # set the use of C++17 globally as all examples require it
 set(CMAKE_CXX_STANDARD 17)
 
+configure_file(config.h.in config.h)
+
 add_subdirectory(demos/Getting_started)
+
+install(DIRECTORY resources DESTINATION bin)
